@@ -1,0 +1,29 @@
+{
+  "name": "tcc-2026",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/maxxartiaga69-ux/meutcc#readme",
+  "bugs": {
+    "url": "https://github.com/maxxartiaga69-ux/meutcc/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maxxartiaga69-ux/meutcc.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^1.2.0",
+    "dotenv": "^18.0.9",
+    "drizzle-orm": "^1.0.0-rc.4",
+    "express": "^5.3.0"
+  },
+  "devDependencies": {
+    "drizzle-kit": "^1.0.0-rc.4"
+  }
+}
