@@ -1,13 +1,18 @@
-import express from 'express'
 import { Router } from "express";
-import { createUser, getUser, deleteUser, getImage } from "../controllers/usercontroller.js";
+import {
+  createUser,
+  getAllUsers,
+  getUser,
+  deleteUser,
+  getImage,
+} from "../controllers/usercontroller.js";
 
 const router = Router();
 
-// Rotas REST para usuários
-router.post("/users", createUser);
-router.get("/users/:id", getUser);
-router.delete("/users/:id", deleteUser);
-router.get("/users/:id", getImage);
+router.post("/usuarios", createUser);
+router.get("/", getAllUsers); // lista todos (sem :id)
+router.get("/:id/imagem", getImage);
+router.get("/:id", getUser);
+router.delete("/:id", deleteUser);
 
 export default router;

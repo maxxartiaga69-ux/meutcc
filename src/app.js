@@ -1,9 +1,9 @@
-import express from'express'
-import userrouter from './routes/userrouter.js'
+import express from "express";
+import userRouter from "./routes/userrouter.js";
 
-const app = express()
+const app = express();
 
-app.use(userrouter)
+app.use(express.json());
+app.use("/usuarios", userRouter);
 
-
-export default app
+export default app;

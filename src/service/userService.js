@@ -1,24 +1,35 @@
-import { db } from "../db"; // Substitua pelo caminho onde sua instância 'db' foi configurada
-import { usersTable } from "../db/schemas/usuarios.js"; // Substitua pelo caminho do seu schema
+import { db } from "../db/index.js";
+import { usersTable } from "../db/schemas/usuarios.js";
 import { eq } from "drizzle-orm";
 
 export const userService = {
   async createUser(userData) {
-    // Insere o usuário e retorna o registro criado
     const [newUser] = await db
       .insert(usersTable)
       .values({
         name: userData.name,
         email: userData.email,
-        senha: userData.senha, // Em produção, lembre-se de fazer o hash da senha antes!
+        senha: userData.senha, // em produção, faça hash (bcrypt)
       })
       .returning();
 
     return newUser;
   },
 
+  // NOVO: lista todos os usuários (sem expor a senha)
+  async getAllUsers() {
+    const users = await db
+      .select({
+        id: usersTable.id,
+        name: usersTable.name,
+        email: usersTable.email,
+      })
+      .from(usersTable);
+
+    return users;
+  },
+
   async getUserById(id) {
-    // Busca o usuário pelo ID
     const [user] = await db
       .select()
       .from(usersTable)
@@ -28,7 +39,6 @@ export const userService = {
   },
 
   async deleteUser(id) {
-    // Deleta o usuário pelo ID e retorna o registro deletado (opcional)
     const [deletedUser] = await db
       .delete(usersTable)
       .where(eq(usersTable.id, id))
@@ -38,11 +48,11 @@ export const userService = {
   },
 
   async getImage(id) {
-    // Deleta o usuário pelo ID
-    const [getImage] = await db
+    const [user] = await db
       .select()
       .from(usersTable)
       .where(eq(usersTable.id, id));
-  }
-};
 
+    return user ? user.imagem ?? null : null;
+  },
+};

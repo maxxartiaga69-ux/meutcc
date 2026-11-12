@@ -1,8 +1,11 @@
-import { integer, pgTable, varchar, uuid,} from "drizzle-orm/pg-core";
-import { sql } from "drizzle-orm"
+import { pgTable, uuid } from "drizzle-orm/pg-core";
+import { sql } from "drizzle-orm";
+import { usersTable } from "./usuarios.js";
 
-export const usersTable = pgTable("gostei", {
+export const gosteiTable = pgTable("gostei", {
   id: uuid().primaryKey().default(sql`gen_random_uuid()`),
-  Image: varchar().notNull(),
-  name: varchar().notNull()
+  usuarioId: uuid("usuario_id")
+    .notNull()
+    .references(() => usersTable.id, { onDelete: "cascade" }),
+  // suas outras colunas aqui (ex.: jogoId)
 });
