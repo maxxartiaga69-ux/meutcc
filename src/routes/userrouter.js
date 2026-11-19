@@ -1,18 +1,13 @@
 import { Router } from "express";
-import {
-  createUser,
-  getAllUsers,
-  getUser,
-  deleteUser,
-  getImage,
-} from "../controllers/usercontroller.js";
+import { getProfile, updateMe, deleteMe } from "../controllers/usercontroller.js";
+import { authRequired } from "../middlewares/auth.js";
+import { validate } from "../middlewares/validate.js";
+import { updateProfileSchema } from "../validators/usuarios.js";
 
 const router = Router();
 
-router.post("/usuarios", createUser);
-router.get("/", getAllUsers); // lista todos (sem :id)
-router.get("/:id/imagem", getImage);
-router.get("/:id", getUser);
-router.delete("/:id", deleteUser);
+router.patch("/me", authRequired, validate(updateProfileSchema), updateMe);
+router.delete("/me", authRequired, deleteMe);
+router.get("/:username", getProfile);
 
 export default router;
